@@ -1,0 +1,119 @@
+<!-- hello! https://t.me/lucysrausch -->
+<html>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="singularity.engineering" />
+  <meta property="og:title"       content="singularity.engineering" />
+  <meta property="og:description" content="singularity.engineering" />
+
+  <body>
+    <div class="holderh">
+      <div class="holder">
+        <div class="overlay">
+          <div class="text" >Singularity - a point in time at which technology becomes uncontrollable.</div>
+          <div class="text" >Engineering - a design theoretic framework for problem solving.</div>
+          <div class="bold" onclick="" >Avoid Convergence.&#10;Embrace Chaos.</div>
+        </div>
+        <canvas id="canvas" class="bg" width="1600" height="1320">
+      </div>
+    </div>
+  </body>
+  <script>
+    // by @liabru - http://brm.io
+    var canvas = document.getElementById('canvas'),
+      context = canvas.getContext('2d'),
+      c = 21,
+      h = 0.0005,
+      t = -6,
+      x0 = Math.random(),
+      y0 = Math.random(),
+      z0 = Math.random(),
+      x1,
+      y1,
+      z1,
+      cx = 800,
+      cy = 450,
+      scalex = 50,
+      scaley = 25,
+      i = 0;
+
+    var interval = setInterval(function() {
+      for (var k = 0; k < 20; k += 1) {
+        x1 = x0 + h * t * (x0 - y0);
+        y1 = y0 + h * (-x0 * z0 + c * x0 - y0);
+        z1 = z0 + h * (x0 * y0 - z0);
+
+        context.strokeStyle = "hsl(" + (Math.abs(x1)*5+220) + "," + Math.abs(y1)*3 + "%," + (Math.abs(z1)*2 + 10) + "%)";
+
+        context.beginPath();
+        context.moveTo(cx + x0 * scalex, cy + y0 * scaley);
+        context.lineTo(cx + x1 * scalex, cy + y1 * scaley);
+        context.stroke();
+
+        x0 = x1;
+        y0 = y1;
+        z0 = z1;
+
+        i += 1;
+      }
+    }, 1);
+  </script>
+  <style>
+    body {
+      background: #18181d;
+      margin: 0;
+    }
+    .holder {
+        position: relative;
+        width: 100vw;
+    }
+    .holderh {
+        width: 100vw;
+        max-width: 100vw;
+        overflow: hidden;
+        height: 100vh;
+    }
+    .bg {
+        z-index: 1;
+        top: 50vh;
+        transform: translateY(-40%);
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: auto;
+    }
+    .overlay {
+        z-index: 2;
+        position: absolute;
+        top: 50vh;
+        transform: translateY(-50%);
+        width: calc(66% - 48px);
+        margin-left: 17%;
+        margin-right: 17%;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        white-space: pre-wrap;
+    }
+    .text {
+        padding: 1vh;
+        color: #eeeeee;
+        letter-spacing: 2px;
+        text-align: center;
+        font-size: 1.8vw;
+    }
+    .bold {
+        padding: 8px;
+        color: #eeeeee;
+        letter-spacing: 1px;
+        text-align: center;
+        font-size: 2.25vw;
+        transition: 0.5s all;
+    }
+    .bold:hover {
+        color: #ba42de
+    }
+  </style>
+</html>
